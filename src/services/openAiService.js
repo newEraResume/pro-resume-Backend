@@ -1,6 +1,7 @@
 const OpenAI = require('openai');
-let apiKey = "sk-proj-RMXaq8BrNpUgJdqGhMXRT3BlbkFJGAYPRqhJ6OKxSGyHlpMA";
-const openai = new OpenAI.OpenAI({ apiKey: apiKey });
+const dotenv = require('dotenv');
+dotenv.config();
+const openai = new OpenAI.OpenAI({ apiKey: process.env.OPEN_AI_KEY });
 
 const enhancePrompt = async (prompt) => {
   const completion = await openai.chat.completions.create({
