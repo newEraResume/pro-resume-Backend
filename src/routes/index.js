@@ -8,10 +8,12 @@ const {
     updateUser,
     deleteUser,
   } = require("../controllers/userController");
+  const {newUserControllerForDemo} = require('../controllers/newUserControllerForDemo')
 
 const router = express.Router();
 
 router.get('/',defaultController); // this is default one
+router.get('/userdemo',newUserControllerForDemo);
 router.post('/enhancePrompt', enhancePromptController);
 router.route("/user").get(getAllUsers).post(createUser);
 router.route("/user:id").get(getUserById).put(updateUser).delete(deleteUser);
