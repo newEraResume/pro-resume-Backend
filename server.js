@@ -2,11 +2,11 @@ const express = require('express');
 const dotenv = require('dotenv');
 const routes = require('./src/routes');
 const cors = require('cors');
-const db = require('./src/config/config')
+const connectDB = require('./src/config/config');
+connectDB();
 
 dotenv.config();
-db.on('error', error => console.error(error));
-db.once('open', () => console.log("Connected to DB"));
+
 const app = express();
 const port = process.env.PORT || 3000;
 
