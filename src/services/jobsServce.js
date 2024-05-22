@@ -17,12 +17,14 @@ const getJobs = async (query) => {
           'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
         }
     };
-  try {
-    const response = await axios.request(options);
-    return response?.data;
-  } catch (error) {
-    return error;
-  }
+    console.log("We have closed this request for later use")
+    return "We have closed this request for later use";
+//   try {
+//     const response = await axios.request(options);
+//     return response?.data;
+//   } catch (error) {
+//     return error;
+//   }
 };
 
 const getJobsByFilter = async (query) => {
