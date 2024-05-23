@@ -18,3 +18,7 @@ exports.updateUser = async (id, user) => {
 exports.deleteUser = async (id) => {
   return await userModel.findByIdAndDelete(id);
 };
+
+exports.getUserByEmail = async (emailId) => {
+  return await userModel.findOne({ emailId: emailId });
+}

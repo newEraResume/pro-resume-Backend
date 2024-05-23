@@ -11,8 +11,13 @@ exports.getAllUsers = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   try {
+    const { emailId } = req.body;
+    const existingUser = await userService.getUserByEmail(emailId);
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email already exists' });
+    }
     const user = await userService.createUser(req.body);
-    res.json({ data: user, status: "success" });
+    res.json({ data: user, status: 'success' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
