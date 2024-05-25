@@ -2,13 +2,14 @@ const express = require('express');
 const { enhancePromptController } = require('../controllers/enhancePropmptController');
 const {defaultController} = require('../controllers/defaultController');
 const {
-    getAllUsers,
-    createUser,
-    getUserById,
-    updateUser,
-    deleteUser,
-  } = require("../controllers/userController");
+  getAllResume,
+    createResume,
+    getResumeById,
+    updateResume,
+    deleteResume,
+  } = require("../controllers/resumeDetailsController");
 const { jobsController, getJobLists } = require('../controllers/jobsController');
+const { loginController, signupController } = require('../controllers/authController');
 
 const router = express.Router();
 
@@ -16,7 +17,9 @@ router.get('/',defaultController); // this is default one
 router.get('/jobs',jobsController);
 router.get('/listjobsfromdb',getJobLists);
 router.post('/enhancePrompt', enhancePromptController);
-router.route("/user").get(getAllUsers).post(createUser);
-router.route("/user/:id").get(getUserById).put(updateUser).delete(deleteUser);
+router.route("/resume").get(getAllResume).post(createResume);
+router.route("/resume-list/:id").get(getResumeById).put(updateResume).delete(deleteResume);
+router.post("/login",loginController);
+router.post("/signup",signupController);
 
 module.exports = router;
