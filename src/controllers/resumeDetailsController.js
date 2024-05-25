@@ -1,49 +1,49 @@
-const userService = require("../services/userService");
+const resumeDetailsService = require("../services/resumeDetailsService");
 
-exports.getAllUsers = async (req, res) => {
+exports.getAllResume = async (req, res) => {
   try {
-    const users = await userService.getAllUsers();
+    const users = await resumeDetailsService.getAllResume();
     res.json({ data: users, status: "success" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-exports.createUser = async (req, res) => {
+exports.createResume = async (req, res) => {
   try {
     const { emailId } = req.body;
-    const existingUser = await userService.getUserByEmail(emailId);
+    const existingUser = await resumeDetailsService.getResumeByEmail(emailId);
     if (existingUser) {
       return res.status(400).json({ error: 'Email already exists' });
     }
-    const user = await userService.createUser(req.body);
+    const user = await resumeDetailsService.createResume(req.body);
     res.json({ data: user, status: 'success' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-exports.getUserById = async (req, res) => {
+exports.getResumeById = async (req, res) => {
   try {
-    const user = await userService.getUserById(req.params.id);
+    const user = await resumeDetailsService.getResumeById(req.params.id);
     res.json({ data: user, status: "success" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-exports.updateUser = async (req, res) => {
+exports.updateResume = async (req, res) => {
   try {
-    const user = await userService.updateUser(req.params.id, req.body);
+    const user = await resumeDetailsService.updateResume(req.params.id, req.body);
     res.json({ data: user, status: "success" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-exports.deleteUser = async (req, res) => {
+exports.deleteResume = async (req, res) => {
   try {
-    const user = await userService.deleteUser(req.params.id);
+    const user = await resumeDetailsService.deleteResume(req.params.id);
     res.json({ data: user, status: "success" });
   } catch (err) {
     res.status(500).json({ error: err.message });
