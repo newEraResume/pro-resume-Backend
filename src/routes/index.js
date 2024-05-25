@@ -8,12 +8,13 @@ const {
     updateUser,
     deleteUser,
   } = require("../controllers/userController");
-const { jobsController } = require('../controllers/jobsController');
+const { jobsController, getJobLists } = require('../controllers/jobsController');
 
 const router = express.Router();
 
 router.get('/',defaultController); // this is default one
 router.get('/jobs',jobsController);
+router.get('/listjobsfromdb',getJobLists);
 router.post('/enhancePrompt', enhancePromptController);
 router.route("/user").get(getAllUsers).post(createUser);
 router.route("/user/:id").get(getUserById).put(updateUser).delete(deleteUser);
