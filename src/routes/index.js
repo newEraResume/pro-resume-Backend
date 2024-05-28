@@ -10,6 +10,7 @@ const {
   } = require("../controllers/resumeDetailsController");
 const { jobsController, getJobLists } = require('../controllers/jobsController');
 const { loginController, signupController } = require('../controllers/authController');
+const { googleJobsController } = require('../controllers/googleJobsController');
 
 const router = express.Router();
 
@@ -21,5 +22,6 @@ router.route("/resume").get(getAllResume).post(createResume);
 router.route("/resume-list/:id").get(getResumeById).put(updateResume).delete(deleteResume);
 router.post("/login",loginController);
 router.post("/signup",signupController);
+router.post("/gjob",googleJobsController)
 
 module.exports = router;
