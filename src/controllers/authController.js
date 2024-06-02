@@ -53,7 +53,8 @@ const generateJwtSecret = () => {
       const token = jwt.sign({ userId: user._id }, generateJwtSecret(), { expiresIn: '1h' });
       res.status(200).json({ token:token , message:"Login Success" });
     } catch (error) {
-      res.status(500).json({ error: 'Something went wrong' });
+      console.log(error);
+      res.status(500).json({ error: 'Something went wrong',error });
     }
   };
 
