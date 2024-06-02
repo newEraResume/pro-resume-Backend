@@ -11,6 +11,7 @@ const {
 const { jobsController, getJobLists } = require('../controllers/jobsController');
 const { loginController, signupController } = require('../controllers/authController');
 const { updateResumeController } = require('../controllers/updateResumeController');
+const { verifyTokenController } = require('../controllers/verifyTokenController');
 
 const router = express.Router();
 
@@ -23,5 +24,6 @@ router.route("/resume").get(getAllResume).post(createResume);
 router.route("/resume-list/:id").get(getResumeById).put(updateResume).delete(deleteResume);
 router.post("/login",loginController);
 router.post("/signup",signupController);
+router.post("/verifyToken",verifyTokenController)
 
 module.exports = router;
