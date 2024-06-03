@@ -19,7 +19,8 @@ const updateResumeController = async (req, res) => {
     `;
 
     const completion = await enhancePrompt(prompt);
-    res.json({ completion });
+    const content = completion.choices[0].message.content;
+    res.json(JSON.parse(content))
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
