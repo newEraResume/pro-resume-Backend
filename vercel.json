@@ -15,10 +15,5 @@
                 "Access-Control-Allow-Origin": "*"
             }
         }
-    ],
-    "functions":{
-        "src/controllers/updateResumeController.js": {
-            "maxDuration": 60
-        }
-    }
+    ]
 }
