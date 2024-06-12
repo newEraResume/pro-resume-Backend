@@ -3,13 +3,13 @@
     "builds": [
         {
             "src": "server.js",
-            "use": "@vercel/node",
-            "maxDuration": 60
+            "use": "@vercel/node"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
+            "maxDuration": 60,
             "dest": "server.js",
             "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
             "headers": {
