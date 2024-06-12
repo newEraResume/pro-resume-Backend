@@ -3,14 +3,10 @@
     "builds": [
         {
             "src": "server.js",
-            "use": "@vercel/node"
-        }
-    ],
-    "functions": {
-        "*": {
+            "use": "@vercel/node",
             "maxDuration": 60
         }
-    },
+    ],
     "routes": [
         {
             "src": "/(.*)",
