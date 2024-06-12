@@ -2,7 +2,7 @@
     "version": 2,
     "functions": {
       "src/controllers/**/*": {
-        "runtime": "@vercel/node",
+        "runtime": "node@22.3.0",
         "maxDuration": 60
       }
     },
