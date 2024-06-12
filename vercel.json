@@ -17,7 +17,7 @@
         }
     ],
     "functions":{
-        "server.js": {
+        "src/controllers/updateResumeController.js": {
             "maxDuration": 60
         }
     }
