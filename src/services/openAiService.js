@@ -6,7 +6,7 @@ const openai = new OpenAI.OpenAI({ apiKey: process.env.OPEN_AI_KEY });
 const enhancePrompt = async (prompt) => {
   const completion = await openai.chat.completions.create({
     messages: [{ role: 'system', content: prompt }],
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-4',
   });
   return completion;
 };
