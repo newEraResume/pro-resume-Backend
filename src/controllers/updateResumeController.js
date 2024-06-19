@@ -1,5 +1,9 @@
 const { enhancePrompt } = require('../services/openAiService');
-const  ResumeDetails  = require('../models/ResumeDetails'); // Assuming you have a ResumeDetails model
+const ResumeDetails = require('../models/ResumeDetails'); // Assuming you have a ResumeDetails model
+const NodeCache = require('node-cache');
+
+// Create a cache instance with a default TTL (time to live) of 1 hour (3600 seconds)
+const cache = new NodeCache({ stdTTL: 3600 });
 
 const createPrompt = (data) => {
   const { job_description, summary, projects, work_exp, required_skills } = data;
@@ -26,30 +30,44 @@ const createPrompt = (data) => {
 const updateResumeController = async (req, res) => {
   try {
     const { emailId, job_description, required_skills } = req.body;
+    const cacheKey = `${emailId}-${job_description}-${required_skills ? required_skills.join(",") : ''}`;
+
+    // Check if response is in cache
+    const cachedResponse = cache.get(cacheKey);
+    if (cachedResponse) {
+      return res.json(JSON.parse(cachedResponse));
+    }
+
     const resumeDetails = await ResumeDetails.findOne({ emailId: emailId });
     if (!resumeDetails) {
-      return res.status(404).json({ error: 'User Not Found' , status:404 });
+      return res.status(404).json({ error: 'Email not Exist', status: 404 });
     }
+
     const formdetails = resumeDetails?.form_details;
-    const {summary, projects, work_experience} = formdetails;
+    const { summary, projects, work_experience } = formdetails;
     const data = {
-      summary:summary,
-      projects:projects,
-      work_exp:work_experience,
-      job_description:job_description,
-      required_skills:required_skills
-    }
-    let prompt = createPrompt(data);
-    let responseFormDetails = {...formdetails};
+      summary: summary,
+      projects: projects,
+      work_exp: work_experience,
+      job_description: job_description,
+      required_skills: required_skills
+    };
+
+    const prompt = createPrompt(data);
+    let responseFormDetails = { ...formdetails };
     const completion = await enhancePrompt(prompt);
     const content = completion.choices[0].message.content;
     let openAiAnswer = JSON.parse(content);
+
     responseFormDetails.skills = openAiAnswer.skills;
     responseFormDetails.summary = openAiAnswer.summary;
     responseFormDetails.work_experience = openAiAnswer.work_experience;
     responseFormDetails.projects = openAiAnswer.projects;
 
-    res.json(responseFormDetails)
+    // Store the response in cache
+    cache.set(cacheKey, JSON.stringify(responseFormDetails));
+
+    res.json(responseFormDetails);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal Server Error' });

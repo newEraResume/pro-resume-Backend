@@ -13,6 +13,8 @@ const { loginController, signupController } = require('../controllers/authContro
 const { updateResumeController } = require('../controllers/updateResumeController');
 const { verifyTokenController } = require('../controllers/verifyTokenController');
 const { getSkillsFromProjectsAndExperiences } = require('../controllers/getSkillsFromProjectsAndExperiences');
+const { getAtsScores } = require('../controllers/atsScoreControler');
+const { getuserProfileByEmailId, createUserProfile, updateUserProfile, deleteuserProfile } = require('../controllers/userProfileController');
 
 const router = express.Router();
 
@@ -27,5 +29,7 @@ router.post("/login",loginController);
 router.post("/signup",signupController);
 router.post("/verifyToken",verifyTokenController);
 router.post("/skills-suggestion",getSkillsFromProjectsAndExperiences)
+router.post("/checkatsscore",getAtsScores);
+router.route("/userProfile").get(getuserProfileByEmailId).post(createUserProfile).put(updateUserProfile).delete(deleteuserProfile);
 
 module.exports = router;
